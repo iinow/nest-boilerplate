@@ -1,0 +1,28 @@
+server:
+  http:
+    port: 3000
+  https:
+    port: 3001
+  ssl:
+    privkeyPath: ../ssl/privkey.pem
+    pubPath: ../ssl/cert.pem
+
+jwt:
+  secret: ENC(M51xWlp77ouOeS68NSEON6bGJK/el3gzxh8EnGrZpdCuo6ZTGQd4XVOvFwdDbbNeG1Ex27jm9hO51hI1c5uvGg==)
+  # 60 * 60 * 24 * 30 = 30일치
+  expiredSecond: 2592000
+
+redis: 
+  host: localhost
+  port: 6379
+
+rdb:
+  type: 'postgres'
+  host: '192.168.0.24'
+  port: 5433
+  username: 'postgres'
+  password: 'qlalfqjsghekd'
+  database: 'postgres'
+  autoLoadEntities: true
+  synchronize: true
+  schema: 'example'

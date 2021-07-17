@@ -1,4 +1,5 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Render } from '@nestjs/common'
+import { ApiOperation } from '@nestjs/swagger'
 
 import { AppService } from '~/app.service'
 
@@ -6,8 +7,13 @@ import { AppService } from '~/app.service'
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
+  @ApiOperation({
+    summary: '홈',
+    description: '루트',
+  })
   @Get()
-  getHello(): string {
-    return this.appService.getHello()
+  @Render('index')
+  getHello() {
+    return { message: 'hell' }
   }
 }
