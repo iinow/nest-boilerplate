@@ -1,3 +1,5 @@
+import { DiscordModule } from 'discord-nestjs'
+
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
@@ -6,7 +8,8 @@ import { AppController } from '~/app.controller'
 import { AppService } from '~/app.service'
 import configuration from '~/config'
 import { validate } from '~/config/env.validation'
-import { RelationDB } from '~/config/types/env.types'
+import { Discord, RelationDB } from '~/config/types/env.types'
+import { CustomLoggerModule } from '~/custom-logger/custom-logger.module'
 import { UsersModule } from '~/users/users.module'
 
 @Module({
@@ -26,6 +29,7 @@ import { UsersModule } from '~/users/users.module'
       },
     }),
     UsersModule,
+    CustomLoggerModule,
   ],
   controllers: [AppController],
   providers: [AppService],

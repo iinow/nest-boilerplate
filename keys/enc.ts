@@ -1,24 +1,31 @@
+import { generateKeyPair } from 'crypto'
+import { writeFileSync } from 'fs'
+import { join } from 'path'
+
 import { StringEncryptor } from '../src/common/string.encryptor'
 
-// generateKeyPair(
-//   'rsa',
-//   {
-//     modulusLength: 512,
-//     publicKeyEncoding: {
-//       type: 'spki',
-//       format: 'pem',
-//     },
-//     privateKeyEncoding: {
-//       type: 'pkcs8',
-//       format: 'pem',
-//       cipher: 'aes-256-cbc',
-//       passphrase: 'HAHAHA',
-//     },
-//   },
-//   (err, publicKey, privateKey) => {
-//     console.log(err, publicKey, privateKey)
-//   }
-// )
+function generate() {
+  generateKeyPair(
+    'rsa',
+    {
+      modulusLength: 1024,
+      publicKeyEncoding: {
+        type: 'spki',
+        format: 'pem',
+      },
+      privateKeyEncoding: {
+        type: 'pkcs8',
+        format: 'pem',
+        cipher: 'aes-256-cbc',
+        passphrase: 'HAHAHA',
+      },
+    },
+    (err, publicKey, privateKey) => {
+      writeFileSync(join(__dirname, './public.pem'), publicKey)
+      writeFileSync(join(__dirname, './private.pem'), privateKey)
+    }
+  )
+}
 
 const str = 'HAHA'
 

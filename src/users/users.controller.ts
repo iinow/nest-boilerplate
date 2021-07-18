@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  HttpException,
+  Logger,
 } from '@nestjs/common'
 
 import { CreateUserDto } from './dto/create-user.dto'
@@ -15,6 +15,8 @@ import { UsersService } from './users.service'
 
 @Controller('users')
 export class UsersController {
+  private readonly logger = new Logger(UsersController.name)
+
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
@@ -24,7 +26,6 @@ export class UsersController {
 
   @Get()
   findAll() {
-    // throw new HttpException('ddd', 403)
     return this.usersService.findAll()
   }
 

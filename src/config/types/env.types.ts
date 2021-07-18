@@ -100,6 +100,25 @@ export class RelationDB {
   schema?: string
 }
 
+class DiscordWebhook {
+  @IsString()
+  id: string
+
+  @IsString()
+  token: string
+}
+
+export class Discord {
+  @IsNotEmpty()
+  @IsString()
+  token: string
+
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
+  webhook: DiscordWebhook
+}
+
 export class EnvironmentVariables {
   // @IsEnum(Environment)
   NODE_ENV: Environment
@@ -123,4 +142,9 @@ export class EnvironmentVariables {
   @IsObject()
   @ValidateNested()
   rdb: RelationDB
+
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
+  discord: Discord
 }
