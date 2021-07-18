@@ -12,7 +12,7 @@ export class StringEncryptor {
   private static instance: StringEncryptor
   private privateKey: KeyObject
   private publicKey: KeyObject
-  private regex = /^ENC\((.*)\)$/g
+  private regex = /^ENC\((.*)\)$/
 
   private constructor() {
     const path = (_: unknown, pathStr: string) =>

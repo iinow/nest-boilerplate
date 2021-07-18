@@ -3,7 +3,7 @@ import { DiscordModule } from 'discord-nestjs'
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 
-import { Discord } from '@/config/types/env.types'
+import { Discord } from '~/config/types/env.types'
 
 import { CustomLogger } from './custom-logger.service'
 

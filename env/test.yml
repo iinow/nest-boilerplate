@@ -1,0 +1,38 @@
+server:
+  http:
+    port: 3000
+  https:
+    port: 3001
+  ssl:
+    privkeyPath: ../ssl/privkey.pem
+    pubPath: ../ssl/cert.pem
+
+jwt:
+  secret: HAHA
+  # 60 * 60 * 24 * 30 = 30일치
+  expiredSecond: 2592000
+
+redis: 
+  host: localhost
+  port: 6379
+
+rdb:  
+  type: 'postgres'
+  host: '192.168.0.24'
+  port: 5433
+  username: 'postgres'
+  password: 'qlalfqjsghekd'
+  database: 'postgres'
+  autoLoadEntities: true
+  synchronize: true
+  schema: 'example'
+
+notion: 
+  key: ENC(lcTxQNkg2qiPpsNuipoI8O7ixQ2h0mFYBKbvz+Ky25hU3IxIkVfSNNocI9wbq/WAvJupV5yzwPnnKDkkE//20OKqyDPWF6guu6Ppon+U26MfeX0xjPPoNXCrlT7Nzvnk6CsNN2wGdtGnc1jZByYWcl7/IsMSiyXlYqlmRynoQxw=)
+# database id = ENC(yyd56L6HIjKUVE7T6v2XRU4HEJO2+kFPG6ZswRJnirCX83mNL2ho8WVUoZk/Q5iPrVWoLnlIi9Mi1V6Xt650malPDhoBYfOBqTuk/4EXLLacBmpKsM+K7HbMfOcaEXI17NyjiVoY0Hrv7/wyulrm+shp3sQi/0ufqE0G36ctn4s=)
+
+discord:
+  token: ENC(ER60WFiHGVCj/9n9srD06SBiKxj4cw2Giw8wjF56Au87iL89wN5l2uzcjtk8hcVUx1XxdaU/kKNTImXBkKhCRu+jTXDdMIU/Kf6xyhObZwRa+ZMi+c371LjuVEX+/Hg/mVvgye+aK5sN3grxzY439OS3jBXL4rk/j/NhzPWTLks=)
+  webhook:
+    id: ENC(cdJK4zW7ryfBeo7OWbp9MIYlDBpWwX43V/uXsjY0bHhK3yUUAd7a2sUm9AqGhO9wGxio5KLX0bwlLTlo4u13OL+STMrsDw1EX6DqWs1wD4pjbSBFCaBKGmlcak/URF3zPCVbFpnE2XO2+Eta12CHgTzMS+7uctx34yFB4eJWp6k=)
+    token: ENC(tfB/hc5I9U4drWs3/Ffe+3+6VMXl7IjAKRMEEcklFIgU5AxFvvSE2Q4TEWv8SXUUb0hDl9J4WQ+EaD0IAxDA2PNf5SNtkFoOfydFEOXnZCDXRwpFoQLeFJrnLRFirtRuaATzAo9k/gaCsUID/XWdCHiC1QNd8TjBViAcwW0VM2U=)

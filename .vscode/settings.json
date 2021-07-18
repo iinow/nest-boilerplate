@@ -3,7 +3,7 @@
     "prettier.enable": true,
     "editor.tabSize": 2,
     "files.exclude": {
-      "node_modules/": true,
+      "node_modules/": false,
       "typings/": true,
       "target/": true,
       ".settings/": true

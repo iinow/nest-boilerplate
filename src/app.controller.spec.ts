@@ -1,3 +1,5 @@
+import { ConsoleLogger } from '@nestjs/common'
+import { ConfigService } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 
 import { AppController } from '~/app.controller'
@@ -16,8 +18,8 @@ describe('AppController', () => {
   })
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!')
+    it('should return "Message!"', () => {
+      expect(appController.getHello()?.message).toBe('hell')
     })
   })
 })

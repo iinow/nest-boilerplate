@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { CustomLogger } from './custom-logger.service'
 
-describe('CustomLoggerService', () => {
+describe('CustomLogger', () => {
   let service: CustomLogger
 
   beforeEach(async () => {

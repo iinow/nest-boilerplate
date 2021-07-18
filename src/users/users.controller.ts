@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Logger,
+  ConsoleLogger,
 } from '@nestjs/common'
 
 import { CreateUserDto } from './dto/create-user.dto'
@@ -15,7 +15,7 @@ import { UsersService } from './users.service'
 
 @Controller('users')
 export class UsersController {
-  private readonly logger = new Logger(UsersController.name)
+  private readonly logger = new ConsoleLogger(UsersController.name)
 
   constructor(private readonly usersService: UsersService) {}
 
