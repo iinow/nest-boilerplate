@@ -13,3 +13,5 @@
 4. TypeORM(postgre)
 5. Exception Filter(Global Exception Handler)
 6. codecov
+7. influx, Chronograph
+8. Redis

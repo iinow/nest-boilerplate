@@ -56,7 +56,7 @@ class Jwt {
   expiredSecond: number
 }
 
-class Redis {
+export class Redis {
   @IsString()
   @IsNotEmpty()
   host: string
@@ -98,6 +98,9 @@ export class RelationDB {
 
   @IsString()
   schema?: string
+
+  @IsBoolean()
+  logging?: boolean
 }
 
 class DiscordWebhook {
@@ -117,6 +120,20 @@ export class Discord {
   @IsObject()
   @ValidateNested()
   webhook: DiscordWebhook
+}
+
+export class Influx {
+  @IsString()
+  host: string
+
+  @IsNumber()
+  port: number
+
+  @IsString()
+  database: string
+
+  @IsBoolean()
+  enable: boolean
 }
 
 export class EnvironmentVariables {
@@ -147,4 +164,8 @@ export class EnvironmentVariables {
   @IsObject()
   @ValidateNested()
   discord: Discord
+
+  @IsObject()
+  @ValidateNested()
+  influx: Influx
 }

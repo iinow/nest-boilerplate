@@ -6,6 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { Discord } from '~/config/types/env.types'
 
 import { CustomLogger } from './custom-logger.service'
+import { InfluxLogger } from './influx-logger.service'
 
 @Module({
   imports: [
@@ -14,7 +15,6 @@ import { CustomLogger } from './custom-logger.service'
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => {
         const discord = configService.get<Discord>(Discord.name.toLowerCase())
-
         return {
           token: discord.token,
           commandPrefix: '!',
@@ -23,6 +23,6 @@ import { CustomLogger } from './custom-logger.service'
       },
     }),
   ],
-  providers: [CustomLogger],
+  providers: [CustomLogger, InfluxLogger],
 })
 export class CustomLoggerModule {}

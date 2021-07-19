@@ -1,3 +1,5 @@
+import { InjectRedis, RedisService } from '@liaoliaots/nestjs-redis'
+import { Redis } from 'ioredis'
 import { Connection, Repository } from 'typeorm'
 
 import { Injectable } from '@nestjs/common'
@@ -11,7 +13,8 @@ import { User } from './entities/user.entity'
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
-    private connection: Connection
+    private connection: Connection,
+    private readonly redisService: RedisService
   ) {}
 
   async create(createUserDto: CreateUserDto) {

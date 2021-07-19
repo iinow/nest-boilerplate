@@ -1,3 +1,4 @@
+import { RedisService } from '@liaoliaots/nestjs-redis'
 import { Connection, getConnection, getRepository } from 'typeorm'
 
 import { Test, TestingModule } from '@nestjs/testing'
@@ -27,6 +28,10 @@ describe('UsersController', () => {
           useFactory: jest.fn(() => ({
             findOne: jest.fn((entity) => entity),
           })),
+        },
+        {
+          provide: RedisService,
+          useFactory: jest.fn(() => ({ getClient: { set: jest.fn() } })),
         },
       ],
     }).compile()
