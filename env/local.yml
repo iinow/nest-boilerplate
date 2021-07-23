@@ -4,8 +4,8 @@ server:
   https:
     port: 3001
   ssl:
-    privkeyPath: ../ssl/privkey.pem
-    pubPath: ../ssl/cert.pem
+    privkeyPath: ./ssl/privkey.pem
+    pubPath: ./ssl/cert.pem
 
 jwt:
   secret: HAHA

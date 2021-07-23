@@ -20,10 +20,7 @@ function iterator(obj: any) {
 
 export default () => {
   const config = yaml.load(
-    readFileSync(
-      join(__dirname, `../../../env/${YAML_CONFIG_FILENAME}`),
-      'utf8'
-    )
+    readFileSync(join(__dirname, `../../env/${YAML_CONFIG_FILENAME}`), 'utf8')
   ) as unknown
 
   const values = iterator(config)

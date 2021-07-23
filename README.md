@@ -15,3 +15,19 @@
 6. codecov
 7. influx, Chronograph
 8. Redis
+
+## Getting Started
+
+```shell
+#start
+pm2 start ecosystem.config.js --env [local|dev|prod]
+
+#Scale up (instance 2)
+pm2 scale nestjs-boilerplate 2
+
+#stop
+pm2 stop nestjs-boilerplate
+
+#delete
+pm2 delete nestjs-boilerplate
+```

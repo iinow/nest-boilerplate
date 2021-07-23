@@ -13,7 +13,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService)
 
-  const server = configService.get(Server.name.toLocaleLowerCase()) as Server
+  const server = configService.get<Server>(Server.name.toLocaleLowerCase())
 
   CustomLogger(app)
   filters(app)

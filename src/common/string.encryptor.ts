@@ -15,8 +15,7 @@ export class StringEncryptor {
   private regex = /^ENC\((.*)\)$/
 
   private constructor() {
-    const path = (_: unknown, pathStr: string) =>
-      process.env['NODE_ENV'] ? `../../../${pathStr}` : `../../${pathStr}`
+    const path = (_: unknown, pathStr: string) => `../../${pathStr}`
 
     const privateKeyString = readFileSync(
       join(__dirname, path`${'keys/private.pem'}`)
