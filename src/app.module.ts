@@ -1,8 +1,10 @@
 import { RedisModule } from '@liaoliaots/nestjs-redis'
 import { DiscordModule } from 'discord-nestjs'
+import { join } from 'path'
 
 import { Module } from '@nestjs/common'
 import { ConfigModule, ConfigService } from '@nestjs/config'
+import { ServeStaticModule } from '@nestjs/serve-static'
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 import { AppController } from '~/app.controller'
@@ -11,6 +13,7 @@ import configuration from '~/config'
 import { validate } from '~/config/env.validation'
 import { Discord, Redis, RelationDB } from '~/config/types/env.types'
 import { CustomLoggerModule } from '~/custom-logger/custom-logger.module'
+import { MessageModule } from '~/message/message.module'
 import { UsersModule } from '~/users/users.module'
 
 @Module({
@@ -41,8 +44,12 @@ import { UsersModule } from '~/users/users.module'
       },
       inject: [ConfigService],
     }),
+    ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '../..', 'public'),
+    }),
     UsersModule,
     CustomLoggerModule,
+    MessageModule,
   ],
   controllers: [AppController],
   providers: [AppService],

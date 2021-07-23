@@ -7,12 +7,12 @@ import { AppService } from '~/app.service'
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @ApiOperation({
-    summary: '홈',
-    description: '루트',
-  })
-  @Get()
-  @Render('index')
+  // @ApiOperation({
+  //   summary: '홈',
+  //   description: '루트',
+  // })
+  // @Get()
+  // @Render('index')
   getHello() {
     return { message: 'hell' }
   }
