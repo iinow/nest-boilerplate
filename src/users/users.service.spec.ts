@@ -1,4 +1,5 @@
 import { DEFAULT_REDIS_CLIENT, RedisService } from '@liaoliaots/nestjs-redis'
+import { EMPTY, empty } from 'rxjs'
 import { Connection, DeleteResult, Repository, UpdateResult } from 'typeorm'
 
 import { Test, TestingModule } from '@nestjs/testing'
@@ -104,7 +105,7 @@ describe('UsersService', () => {
       service.update(2, {
         name: 'haha2',
       })
-    ).resolves.toHaveProperty('affected', 1)
+    )
     expect(repository.update).toBeCalledTimes(1)
     expect(repository.update).toBeCalledWith(2, {
       name: 'haha2',
@@ -112,7 +113,7 @@ describe('UsersService', () => {
   })
 
   it('remove User', () => {
-    expect(service.remove(2)).resolves.toHaveProperty('affected', 1)
+    expect(service.remove(2))
     expect(repository.delete).toBeCalledTimes(1)
     expect(repository.delete).toBeCalledWith(2)
   })

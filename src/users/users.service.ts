@@ -1,8 +1,9 @@
 import { InjectRedis, RedisService } from '@liaoliaots/nestjs-redis'
 import { Redis } from 'ioredis'
+import { filter, firstValueFrom, from, map, switchMap, throwError } from 'rxjs'
 import { Connection, Repository } from 'typeorm'
 
-import { Injectable } from '@nestjs/common'
+import { HttpException, Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
 import { CreateUserDto } from './dto/create-user.dto'
@@ -37,10 +38,20 @@ export class UsersService {
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return this.usersRepository.update(id, updateUserDto)
+    return from(this.usersRepository.update(id, updateUserDto)).pipe(
+      filter((result) => result.affected !== 1),
+      switchMap(() =>
+        throwError(() => new HttpException(`id: ${id} not found`, 204))
+      )
+    )
   }
 
   remove(id: number) {
-    return this.usersRepository.delete(id)
+    return from(this.usersRepository.delete(id)).pipe(
+      filter((result) => result.affected !== 1),
+      switchMap(() =>
+        throwError(() => new HttpException(`id: ${id} not found`, 204))
+      )
+    )
   }
 }
