@@ -101,6 +101,9 @@ export class RelationDB {
 
   @IsBoolean()
   logging?: boolean
+
+  @IsBoolean()
+  dropSchema?: boolean
 }
 
 class DiscordWebhook {

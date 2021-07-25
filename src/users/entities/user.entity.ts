@@ -1,16 +1,26 @@
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator'
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+
+import { CreateUserDto } from '../dto/create-user.dto'
 
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
   id: number
 
+  @IsNotEmpty()
+  @IsEmail()
   @Column()
-  firstName: string
+  email: string
 
+  @IsNotEmpty()
+  @IsString()
   @Column()
-  lastName: string
+  name: string
 
-  @Column({ default: true })
-  isActive: boolean
+  public static createUser(createUserDto: CreateUserDto): User {
+    return {
+      ...createUserDto,
+    } as User
+  }
 }

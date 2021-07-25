@@ -27,6 +27,7 @@ rdb:
   synchronize: true
   schema: 'example'
   logging: true
+  dropSchema: true
 
 notion: 
   key: ENC(lcTxQNkg2qiPpsNuipoI8O7ixQ2h0mFYBKbvz+Ky25hU3IxIkVfSNNocI9wbq/WAvJupV5yzwPnnKDkkE//20OKqyDPWF6guu6Ppon+U26MfeX0xjPPoNXCrlT7Nzvnk6CsNN2wGdtGnc1jZByYWcl7/IsMSiyXlYqlmRynoQxw=)

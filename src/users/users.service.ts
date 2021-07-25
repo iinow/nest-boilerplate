@@ -17,17 +17,14 @@ export class UsersService {
     private readonly redisService: RedisService
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
-    return this.usersRepository.insert({
-      firstName: 'haha',
-      lastName: 'le',
-      isActive: true,
-    })
+  async create(createUserDto: CreateUserDto): Promise<User> {
+    const user = this.usersRepository.create(createUserDto)
+    return this.usersRepository.save(user)
   }
 
   async createWithTransaction(createUserDto: CreateUserDto) {
     await this.connection.transaction(async (manager) => {
-      await manager.save(new User())
+      await manager.save(this.usersRepository.create(createUserDto))
     })
   }
 
@@ -36,14 +33,14 @@ export class UsersService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`
+    return this.usersRepository.findOne(id)
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`
+    return this.usersRepository.update(id, updateUserDto)
   }
 
   remove(id: number) {
-    return `This action removes a #${id} user`
+    return this.usersRepository.delete(id)
   }
 }
