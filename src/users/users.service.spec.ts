@@ -1,5 +1,5 @@
 import { DEFAULT_REDIS_CLIENT, RedisService } from '@liaoliaots/nestjs-redis'
-import { EMPTY, empty } from 'rxjs'
+import { EMPTY, empty, firstValueFrom } from 'rxjs'
 import { Connection, DeleteResult, Repository, UpdateResult } from 'typeorm'
 
 import { Test, TestingModule } from '@nestjs/testing'
@@ -112,10 +112,37 @@ describe('UsersService', () => {
     })
   })
 
+  it('update User then throw HttpException', () => {
+    jest.spyOn(repository, 'update').mockResolvedValue({
+      affected: 0,
+      raw: undefined,
+      generatedMaps: [],
+    })
+
+    expect(
+      firstValueFrom(
+        service.update(2, {
+          name: 'haha2',
+        })
+      )
+    ).rejects.toThrowError()
+    expect(repository.update).toBeCalledTimes(1)
+  })
+
   it('remove User', () => {
     expect(service.remove(2))
     expect(repository.delete).toBeCalledTimes(1)
     expect(repository.delete).toBeCalledWith(2)
+  })
+
+  it('remove User then throw HttpException', () => {
+    jest.spyOn(repository, 'delete').mockResolvedValue({
+      affected: 0,
+      raw: undefined,
+    })
+
+    expect(firstValueFrom(service.remove(2))).rejects.toThrowError()
+    expect(repository.delete).toBeCalledTimes(1)
   })
 
   it('findAll User', () => {
