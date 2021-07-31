@@ -35,14 +35,13 @@ export const SYSLOG_SCHEMA = {
 }
 
 enum FacilityType {
-  UNKNOWN = 0,
   CONSOLE = 1,
   USER = 2,
 }
 
 const regexLogMessage = /^\[(.*)\](.*)$/
 
-export function getFacility(message: string) {
+export function getFacility(message: string): string {
   const res = regexLogMessage.exec(message)
   if (res) {
     return res[1].toLowerCase()
@@ -50,19 +49,18 @@ export function getFacility(message: string) {
   return FacilityType[FacilityType.CONSOLE].toLowerCase()
 }
 
-export function getFacilityCode(message: string) {
+export function getFacilityCode(message: string): number {
   const lowerCaseFacilityName = getFacility(message)
-  const res = FacilityType[lowerCaseFacilityName.toUpperCase()]
-  if (res) {
-    return res
-  }
-  return FacilityType.UNKNOWN
+  return FacilityType[lowerCaseFacilityName.toUpperCase()]
 }
 
-export function getMessageWithoutFacility(message: string, context?: string) {
+export function getMessageWithoutFacility(
+  message: string,
+  context?: string
+): string {
   const res = regexLogMessage.exec(message)
   if (res) {
     return context ? `[${context}] ${res[2].trim()}` : res[2].trim()
   }
-  return context ? `[${context}] ${message}` : message
+  return context ? `[${context}] ${message.trim()}` : message.trim()
 }

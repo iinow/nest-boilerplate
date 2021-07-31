@@ -49,6 +49,7 @@
     "influx-syslog": "^0.2.4",
     "ioredis": "^4.27.6",
     "js-yaml": "^4.1.0",
+    "mysql2": "^2.2.5",
     "pg": "^8.6.0",
     "redis": "^3.1.2",
     "reflect-metadata": "^0.1.13",
