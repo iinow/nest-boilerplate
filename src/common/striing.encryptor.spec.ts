@@ -1,5 +1,3 @@
-import { createPrivateKey, createPublicKey } from 'crypto'
-
 import { StringEncryptor } from './string.encryptor'
 
 describe('Syslog', () => {

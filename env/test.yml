@@ -4,8 +4,8 @@ server:
   https:
     port: 3001
   ssl:
-    privkeyPath: ../ssl/privkey.pem
-    pubPath: ../ssl/cert.pem
+    privkeyPath: ./ssl/privkey.pem
+    pubPath: ./ssl/cert.pem
 
 jwt:
   secret: HAHA
@@ -17,15 +17,17 @@ redis:
   port: 6379
 
 rdb:  
-  type: 'postgres'
-  host: '192.168.0.24'
-  port: 5433
-  username: 'postgres'
+  type: 'mysql'
+  host: 'localhost'
+  port: 13306
+  username: 'root'
   password: 'qlalfqjsghekd'
-  database: 'postgres'
+  database: 'nestjs-example'
   autoLoadEntities: true
   synchronize: true
   schema: 'example'
+  logging: true
+  dropSchema: true
 
 notion: 
   key: ENC(lcTxQNkg2qiPpsNuipoI8O7ixQ2h0mFYBKbvz+Ky25hU3IxIkVfSNNocI9wbq/WAvJupV5yzwPnnKDkkE//20OKqyDPWF6guu6Ppon+U26MfeX0xjPPoNXCrlT7Nzvnk6CsNN2wGdtGnc1jZByYWcl7/IsMSiyXlYqlmRynoQxw=)
@@ -36,3 +38,9 @@ discord:
   webhook:
     id: ENC(cdJK4zW7ryfBeo7OWbp9MIYlDBpWwX43V/uXsjY0bHhK3yUUAd7a2sUm9AqGhO9wGxio5KLX0bwlLTlo4u13OL+STMrsDw1EX6DqWs1wD4pjbSBFCaBKGmlcak/URF3zPCVbFpnE2XO2+Eta12CHgTzMS+7uctx34yFB4eJWp6k=)
     token: ENC(tfB/hc5I9U4drWs3/Ffe+3+6VMXl7IjAKRMEEcklFIgU5AxFvvSE2Q4TEWv8SXUUb0hDl9J4WQ+EaD0IAxDA2PNf5SNtkFoOfydFEOXnZCDXRwpFoQLeFJrnLRFirtRuaATzAo9k/gaCsUID/XWdCHiC1QNd8TjBViAcwW0VM2U=)
+
+influx:
+  host: 192.168.0.24
+  port: 8186
+  database: 'ha'
+  enable: false
