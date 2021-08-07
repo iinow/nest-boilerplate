@@ -1,0 +1,3 @@
+ignore:
+  - "src/**/*.module.ts"
+  - "src/**/index.ts"
