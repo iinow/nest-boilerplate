@@ -1,6 +1,14 @@
 import { InjectRedis, RedisService } from '@liaoliaots/nestjs-redis'
 import { Redis } from 'ioredis'
-import { filter, firstValueFrom, from, map, switchMap, throwError } from 'rxjs'
+import {
+  filter,
+  firstValueFrom,
+  from,
+  map,
+  mergeMap,
+  switchMap,
+  throwError,
+} from 'rxjs'
 import { Connection, Repository } from 'typeorm'
 
 import { HttpException, Injectable } from '@nestjs/common'
@@ -8,12 +16,14 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
+import { Provider } from './entities/provider.embedded'
 import { User } from './entities/user.entity'
+import { UsersRepository } from './users.repository'
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectRepository(User) private usersRepository: Repository<User>,
+    @InjectRepository(User) private usersRepository: UsersRepository,
     private connection: Connection,
     private readonly redisService: RedisService
   ) {}
@@ -33,11 +43,32 @@ export class UsersService {
     return this.usersRepository.find()
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.usersRepository.findOne(id)
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
+  findOneByProvider(provider: Provider) {
+    return this.usersRepository.findOne({
+      where: {
+        provider: {
+          userId: provider.userId,
+          type: provider.type,
+        },
+      },
+    })
+  }
+
+  upsert(userDto: CreateUserDto) {
+    return firstValueFrom(
+      from(this.findOneByProvider(userDto.provider)).pipe(
+        mergeMap((user) =>
+          !user ? this.create(userDto) : Promise.resolve(user)
+        )
+      )
+    )
+  }
+
+  update(id: string, updateUserDto: UpdateUserDto) {
     return from(this.usersRepository.update(id, updateUserDto)).pipe(
       filter((result) => result.affected !== 1),
       switchMap(() =>
@@ -46,7 +77,7 @@ export class UsersService {
     )
   }
 
-  remove(id: number) {
+  remove(id: string) {
     return from(this.usersRepository.delete(id)).pipe(
       filter((result) => result.affected !== 1),
       switchMap(() =>

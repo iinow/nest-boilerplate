@@ -3,7 +3,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger'
 
 export default function (app: INestApplication) {
   const config = new DocumentBuilder()
-    .setTitle('NestJs BoilerPlate')
+    .setTitle('NestJs Boilerplate')
     .setDescription('예제')
     .setVersion('1.0')
     .build()

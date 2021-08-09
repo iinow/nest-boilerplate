@@ -9,6 +9,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm'
 
 import { AppController } from '~/app.controller'
 import { AppService } from '~/app.service'
+import { AuthModule } from '~/auth/auth.module'
 import configuration from '~/config'
 import { validate } from '~/config/env.validation'
 import { Discord, Redis, RelationDB } from '~/config/types/env.types'
@@ -50,6 +51,7 @@ import { UsersModule } from '~/users/users.module'
     UsersModule,
     CustomLoggerModule,
     MessageModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

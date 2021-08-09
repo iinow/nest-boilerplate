@@ -139,6 +139,20 @@ export class Influx {
   enable: boolean
 }
 
+export class Provider {
+  @IsNotEmpty()
+  @IsString()
+  clientID: string
+
+  @IsNotEmpty()
+  @IsString()
+  clientSecret: string
+
+  @IsNotEmpty()
+  @IsString()
+  callbackURL: string
+}
+
 export class EnvironmentVariables {
   // @IsEnum(Environment)
   NODE_ENV: Environment
@@ -171,4 +185,9 @@ export class EnvironmentVariables {
   @IsObject()
   @ValidateNested()
   influx: Influx
+
+  @IsNotEmptyObject()
+  @IsObject()
+  @ValidateNested()
+  provider: Record<string, Provider>
 }

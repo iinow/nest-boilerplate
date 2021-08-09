@@ -17,12 +17,12 @@ redis:
   port: 6379
 
 rdb:  
-  type: 'postgres'
-  host: '192.168.0.24'
-  port: 5433
-  username: 'postgres'
+  type: 'mysql'
+  host: 'localhost'
+  port: 13306
+  username: 'root'
   password: 'qlalfqjsghekd'
-  database: 'postgres'
+  database: 'nestjs-example'
   autoLoadEntities: true
   synchronize: true
   schema: 'example'
@@ -43,4 +43,10 @@ influx:
   host: 192.168.0.24
   port: 8186
   database: 'ha'
-  enable: true
+  enable: false
+
+provider:
+  kakao:
+    clientID: 2d757aa5c6d0840f1d941423b5fe0ff1
+    clientSecret: 5CWqDOhlz3wnJd17RR1rwYLMfGMamhUh
+    callbackURL: http://localhost:3000/auth/kakao/callback
