@@ -1,9 +1,12 @@
 import { DEFAULT_REDIS_CLIENT, RedisService } from '@liaoliaots/nestjs-redis'
 import { EMPTY, empty, firstValueFrom } from 'rxjs'
 import { Connection, DeleteResult, Repository, UpdateResult } from 'typeorm'
+import { v4 as uuid } from 'uuid'
 
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
+
+import { ProviderType } from '~/common/enums/provider'
 
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -13,10 +16,16 @@ import { UsersService } from './users.service'
 
 const testEmail = 'haha@gmail.com'
 const testName = 'haha'
+const testProviderUserId = 'hahaProviderUserId'
+const testUuid = uuid()
 
 const oneUser = User.createUser({
   email: testEmail,
   name: testName,
+  provider: {
+    type: ProviderType.KAKAO,
+    userId: testProviderUserId,
+  },
 })
 
 const users = [oneUser]
@@ -84,6 +93,10 @@ describe('UsersService', () => {
       service.create({
         email: testEmail,
         name: testName,
+        provider: {
+          type: ProviderType.KAKAO,
+          userId: testProviderUserId,
+        },
       })
     ).resolves.toBe(oneUser)
     expect(repository.create).toBeCalledTimes(1)
@@ -95,14 +108,14 @@ describe('UsersService', () => {
   })
 
   it('findOne User', () => {
-    expect(service.findOne(2)).resolves.toBe(oneUser)
+    expect(service.findOne(testUuid)).resolves.toBe(oneUser)
     expect(repository.findOne).toBeCalledTimes(1)
     expect(repository.findOne).toBeCalledWith(2)
   })
 
   it('update User', () => {
     expect(
-      service.update(2, {
+      service.update(testUuid, {
         name: 'haha2',
       })
     )
@@ -121,7 +134,7 @@ describe('UsersService', () => {
 
     expect(
       firstValueFrom(
-        service.update(2, {
+        service.update(testUuid, {
           name: 'haha2',
         })
       )
@@ -130,7 +143,7 @@ describe('UsersService', () => {
   })
 
   it('remove User', () => {
-    expect(service.remove(2))
+    expect(service.remove(testUuid))
     expect(repository.delete).toBeCalledTimes(1)
     expect(repository.delete).toBeCalledWith(2)
   })
@@ -141,7 +154,7 @@ describe('UsersService', () => {
       raw: undefined,
     })
 
-    expect(firstValueFrom(service.remove(2))).rejects.toThrowError()
+    expect(firstValueFrom(service.remove(testUuid))).rejects.toThrowError()
     expect(repository.delete).toBeCalledTimes(1)
   })
 
@@ -155,6 +168,10 @@ describe('UsersService', () => {
       service.createWithTransaction({
         email: testEmail,
         name: testName,
+        provider: {
+          type: ProviderType.KAKAO,
+          userId: testProviderUserId,
+        },
       })
     ).resolves.not.toThrow()
     expect(connection.transaction).toBeCalledTimes(1)

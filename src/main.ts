@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common'
+import { ValidationPipe, VersioningType } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
@@ -17,6 +17,9 @@ async function bootstrap() {
 
   const server = configService.get<Server>(Server.name.toLocaleLowerCase())
 
+  app.enableVersioning({
+    type: VersioningType.URI,
+  })
   pipes(app)
   CustomLogger(app)
   filters(app)

@@ -6,6 +6,7 @@ import {
   Redirect,
   Req,
   UseGuards,
+  VERSION_NEUTRAL,
 } from '@nestjs/common'
 import { AuthGuard } from '@nestjs/passport'
 import { ApiTags } from '@nestjs/swagger'
@@ -15,7 +16,10 @@ import { ProviderType } from '~/common/enums/provider'
 import { AuthService } from './auth.service'
 
 @ApiTags('auth')
-@Controller('auth')
+@Controller({
+  path: 'auth',
+  version: VERSION_NEUTRAL,
+})
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
