@@ -44,3 +44,9 @@ influx:
   port: 8186
   database: 'ha'
   enable: false
+
+provider:
+  kakao:
+    clientID: 2d757aa5c6d0840f1d941423b5fe0ff1
+    clientSecret: 5CWqDOhlz3wnJd17RR1rwYLMfGMamhUh
+    callbackURL: http://localhost:3000/auth/kakao/callback

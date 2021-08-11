@@ -103,6 +103,10 @@ describe('UsersService', () => {
     expect(repository.create).toBeCalledWith({
       email: testEmail,
       name: testName,
+      provider: {
+        type: ProviderType.KAKAO,
+        userId: testProviderUserId,
+      },
     })
     expect(repository.save).toBeCalledTimes(1)
   })
@@ -110,7 +114,7 @@ describe('UsersService', () => {
   it('findOne User', () => {
     expect(service.findOne(testUuid)).resolves.toBe(oneUser)
     expect(repository.findOne).toBeCalledTimes(1)
-    expect(repository.findOne).toBeCalledWith(2)
+    expect(repository.findOne).toBeCalledWith(testUuid)
   })
 
   it('update User', () => {
@@ -120,7 +124,7 @@ describe('UsersService', () => {
       })
     )
     expect(repository.update).toBeCalledTimes(1)
-    expect(repository.update).toBeCalledWith(2, {
+    expect(repository.update).toBeCalledWith(testUuid, {
       name: 'haha2',
     })
   })
@@ -145,7 +149,7 @@ describe('UsersService', () => {
   it('remove User', () => {
     expect(service.remove(testUuid))
     expect(repository.delete).toBeCalledTimes(1)
-    expect(repository.delete).toBeCalledWith(2)
+    expect(repository.delete).toBeCalledWith(testUuid)
   })
 
   it('remove User then throw HttpException', () => {

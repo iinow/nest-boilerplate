@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing'
 
 import { InfluxLogger } from './influx-logger.service'
 
-describe('InfluxLogger', async () => {
+describe('InfluxLogger', () => {
   let service: InfluxLogger
 
   beforeEach(async () => {
