@@ -7,8 +7,16 @@ import {
   Param,
   Delete,
   ConsoleLogger,
+  UseGuards,
+  Req,
 } from '@nestjs/common'
-import { ApiOperation, ApiTags } from '@nestjs/swagger'
+import { AuthGuard } from '@nestjs/passport'
+import {
+  ApiBearerAuth,
+  ApiHeader,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger'
 
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
@@ -34,6 +42,11 @@ export class UsersController {
     return this.usersService.create(createUserDto)
   }
 
+  @ApiHeader({
+    name: 'authorization',
+    example: 'jwt',
+    description: 'Bearer {JWT}',
+  })
   @Get()
   findAll(): Promise<User[]> {
     return this.usersService.findAll()

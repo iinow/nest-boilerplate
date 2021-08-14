@@ -7,7 +7,7 @@ import { PassportStrategy } from '@nestjs/passport'
 import { getEnumName, ProviderType } from '~/common/enums/provider'
 import { Provider } from '~/config/types/env.types'
 
-import { AuthService } from './auth.service'
+import { AuthService } from '../auth.service'
 
 @Injectable()
 export class KakaoStrategy extends PassportStrategy(Strategy, 'kakao') {

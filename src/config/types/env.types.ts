@@ -49,10 +49,13 @@ export class Server {
   ssl: ServerSsl
 }
 
-class Jwt {
+export class Jwt {
   @IsNotEmpty()
   @IsString()
   secret: string
+
+  @IsNotEmpty()
+  @IsNumber()
   expiredSecond: number
 }
 

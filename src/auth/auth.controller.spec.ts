@@ -1,9 +1,12 @@
 import { RedisService } from '@liaoliaots/nestjs-redis'
 import { Connection } from 'typeorm'
 
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { JwtModule, JwtService } from '@nestjs/jwt'
 import { Test, TestingModule } from '@nestjs/testing'
 import { getRepositoryToken } from '@nestjs/typeorm'
 
+import { Jwt } from '~/config/types/env.types'
 import { User } from '~/users/entities/user.entity'
 import { UsersService } from '~/users/users.service'
 
@@ -15,10 +18,27 @@ describe('AuthController', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [
+        JwtModule.registerAsync({
+          imports: [ConfigModule],
+          useFactory: (configService: ConfigService) => {
+            const jwt = configService.get<Jwt>(Jwt.name.toLowerCase())
+
+            return {
+              secret: jwt?.secret || 'TEST',
+              signOptions: {
+                expiresIn: jwt?.expiredSecond || 3600,
+              },
+            }
+          },
+          inject: [ConfigService],
+        }),
+      ],
       controllers: [AuthController],
       providers: [
         AuthService,
         UsersService,
+        ConfigService,
         {
           provide: getRepositoryToken(User),
           useFactory: jest.fn(() => ({})),
